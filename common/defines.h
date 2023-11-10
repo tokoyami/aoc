@@ -1,0 +1,7 @@
+#ifndef AOC_COMMON_DEFINES_H
+#define AOC_COMMON_DEFINES_H
+
+#define FALSE 0
+#define TRUE 1
+
+#endif // AOC_COMMON_DEFINES_H
