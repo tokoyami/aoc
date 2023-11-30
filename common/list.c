@@ -3,33 +3,30 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-
-#include "defines.h"
 
 // Cache for the last value to make appending easier.
-struct value *last_value = NULL;
+struct value *last_value = nullptr;
 
-int append(struct value **root, void *data)
+bool append(struct value **root, void *data)
 {
     errno = 0;
     struct value *new_value = (struct value *)malloc(sizeof(struct value));
-    if (new_value == NULL) {
+    if (new_value == nullptr) {
         perror("malloc");
-        return FALSE;
+        return false;
     }
 
     new_value->data = data;
-    new_value->next = NULL;
+    new_value->next = nullptr;
 
-    if (*root == NULL) {
+    if (*root == nullptr) {
         *root = new_value;
     } else {
         last_value->next = new_value;
     }
     last_value = new_value;
 
-    return TRUE;
+    return true;
 }
 
 void free_list(struct value **root, void (*data_dealloc)(void *))
@@ -42,7 +39,7 @@ void free_list(struct value **root, void (*data_dealloc)(void *))
         }
         free(r);
         r = next;
-    } while (r != NULL);
-    *root = NULL;
-    last_value = NULL;
+    } while (r != nullptr);
+    *root = nullptr;
+    last_value = nullptr;
 }
