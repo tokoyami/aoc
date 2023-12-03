@@ -23,7 +23,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    struct value *value_list = nullptr;
+    struct list *value_list = nullptr;
     char buf = 0;
     // Number string will never be above 4 characters.
     int nbuf_index = 0;
@@ -76,10 +76,10 @@ int main(int argc, char **argv)
     }
 
     int done = 0;
-    for (struct value *start_left = value_list;
+    for (struct list *start_left = value_list;
          start_left != nullptr && done == 0;
          start_left = start_left->next) {
-        for (struct value *start_right = start_left->next;
+        for (struct list *start_right = start_left->next;
              start_right != nullptr;
              start_right = start_right->next) {
             if ((int)(uintptr_t)start_left->data + (int)(uintptr_t)start_right->data == 2020) {

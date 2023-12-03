@@ -1,12 +1,10 @@
 // vim: filetype=c
 #pragma once
 
-#include <stdbool.h>
-
-struct value {
+struct list {
     void *data;
-    struct value *next;
+    struct list *next;
 };
 
-bool append(struct value **root, void *data);
-void free_list(struct value **root, void (*data_dealloc)(void *));
+bool append(struct list **root, void *data);
+void free_list(struct list **root, void (*data_dealloc)(void *));

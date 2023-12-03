@@ -23,7 +23,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    struct value *value_list = NULL;
+    struct list *value_list = NULL;
     char buf = 0;
     // Number string will never be above 4 characters.
     int nbuf_index = 0;
@@ -76,13 +76,13 @@ int main(int argc, char **argv)
     }
 
     int done = 0;
-    for (struct value *start_left = value_list;
+    for (struct list *start_left = value_list;
          start_left != NULL && done == 0;
          start_left = start_left->next) {
-        for (struct value *start_middle = start_left->next;
+        for (struct list *start_middle = start_left->next;
              start_middle != NULL && done == 0;
              start_middle = start_middle->next) {
-            for (struct value *start_right = start_middle->next;
+            for (struct list *start_right = start_middle->next;
                  start_right != NULL;
                  start_right = start_right->next) {
                 if ((int)(uintptr_t)start_left->data + (int)(uintptr_t)start_middle->data +
