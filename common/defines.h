@@ -1,4 +1,1 @@
-#ifndef AOC_COMMON_DEFINES_H
-#define AOC_COMMON_DEFINES_H
-
-#endif // AOC_COMMON_DEFINES_H
+#pragma once
