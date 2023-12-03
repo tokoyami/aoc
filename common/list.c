@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// Cache for the last value to make appending easier.
-struct list *last_value = nullptr;
-
 bool append(struct list **root, void *data)
 {
     errno = 0;
@@ -22,9 +19,12 @@ bool append(struct list **root, void *data)
     if (*root == nullptr) {
         *root = new_value;
     } else {
-        last_value->next = new_value;
+        struct list *last_node = *root;
+        while (last_node->next != nullptr) {
+            last_node = last_node->next;
+        }
+        last_node->next = new_value;
     }
-    last_value = new_value;
 
     return true;
 }
@@ -41,5 +41,4 @@ void free_list(struct list **root, void (*data_dealloc)(void *))
         r = next;
     } while (r != nullptr);
     *root = nullptr;
-    last_value = nullptr;
 }
