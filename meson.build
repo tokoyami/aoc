@@ -6,3 +6,4 @@ common_inc_dir = include_directories('.')
 
 subdir('common')
 subdir('2020')
+subdir('2023')
