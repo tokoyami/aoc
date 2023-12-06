@@ -27,7 +27,7 @@ enum ReadReturnValue read_line(int fd, struct string *str)
 {
     bool stop = true;
     do {
-        if (str->len + 1 > str->buffer_len) {
+        if (!is_space_enough_to_append(str, 1)) {
             if (!reallocate(str, str->buffer_len + 1)) {
                 printf("%s: failed to allocate enough space to read line\n", __func__);
                 return Error;

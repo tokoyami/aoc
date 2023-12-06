@@ -40,6 +40,12 @@ void free_string(struct string *v)
     v->buffer_len = 0;
 }
 
+bool is_space_enough_to_append(struct string *v, ssize_t extra_size)
+{
+    // Make sure there is at least one zero byte for string termination.
+    return v->len + 1 + extra_size <= v->buffer_len;
+}
+
 bool reallocate(struct string *v, ssize_t new_len)
 {
     if (new_len < 0) {
@@ -81,9 +87,9 @@ bool append_char(struct string *v, const char *data, ssize_t data_len)
         return false;
     }
 
-    // -1 because we want to keep only one terminating null byte.
-    if (v->len + data_len - 1 > v->buffer_len) {
-        if (!reallocate(v, v->len + data_len - 1)) {
+    const ssize_t new_len = v->len + data_len;
+    if (!is_space_enough_to_append(v, new_len)) {
+        if (!reallocate(v, new_len)) {
             return false;
         }
     }
@@ -94,7 +100,7 @@ bool append_char(struct string *v, const char *data, ssize_t data_len)
         perror(__func__);
         return false;
     }
-    v->len = v->len + data_len - 1;
+    v->len = new_len;
 
     return true;
 }
