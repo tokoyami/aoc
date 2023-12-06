@@ -14,13 +14,9 @@ struct string *init_string(ssize_t initial_len)
         return nullptr;
     }
 
-    errno = 0;
-    memset(str, 0, sizeof(struct string));
-    if (errno != 0) {
-        perror(__func__);
-        free(str);
-        return nullptr;
-    }
+    str->len = 0;
+    str->buffer_len = 0;
+    str->data = nullptr;
 
     if (initial_len > 0) {
         if (!reallocate(str, initial_len)) {
