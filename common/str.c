@@ -44,8 +44,8 @@ bool is_space_enough_to_append(struct string *v, ssize_t extra_size)
 
 bool reallocate(struct string *v, ssize_t new_len)
 {
-    if (new_len < 0) {
-        printf("%s: negative size\n", __func__);
+    if (new_len <= 0) {
+        printf("%s: size must be positive\n", __func__);
         return false;
     }
 
@@ -78,8 +78,8 @@ bool reallocate(struct string *v, ssize_t new_len)
 
 bool append_char(struct string *v, const char *data, ssize_t data_len)
 {
-    if (data_len < 0) {
-        printf("%s: negative data length\n", __func__);
+    if (data_len <= 0) {
+        printf("%s: data length must positive\n", __func__);
         return false;
     }
 
