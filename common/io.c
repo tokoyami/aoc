@@ -14,7 +14,7 @@ int open_first_arg(int argc, char **argv)
     }
 
     errno = 0;
-    int fd = open(argv[1], O_RDONLY);
+    const int fd = open(argv[1], O_RDONLY);
     if (fd < 0) {
         perror("open");
         return -1;
@@ -35,7 +35,7 @@ enum ReadReturnValue read_line(int fd, struct string *str)
         }
 
         errno = 0;
-        ssize_t read_bytes = read(fd, str->data + str->len, 1);
+        const ssize_t read_bytes = read(fd, str->data + str->len, 1);
         if (read_bytes < 0) {
             perror(__func__);
             return Error;

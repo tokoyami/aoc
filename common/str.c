@@ -8,7 +8,7 @@
 struct string *init_string(ssize_t initial_len)
 {
     errno = 0;
-    struct string *str = (struct string *)malloc(sizeof(struct string));
+    struct string *const str = (struct string *)malloc(sizeof(struct string));
     if (str == nullptr) {
         perror(__func__);
         return nullptr;
@@ -49,9 +49,9 @@ bool reallocate(struct string *v, ssize_t new_len)
 
     // Allocate a buffer 1.5 times bigger than requested.
     // TODO: Maybe also round the value to the next alignment value.
-    ssize_t buf_len = (new_len * 3) / 2;
+    const ssize_t buf_len = (new_len * 3) / 2;
     errno = 0;
-    char *new_buf = (char *)realloc(v->data, buf_len);
+    char *const new_buf = (char *)realloc(v->data, buf_len);
     if (new_buf == nullptr) {
         perror(__func__);
         return false;
@@ -61,7 +61,7 @@ bool reallocate(struct string *v, ssize_t new_len)
         v->data = new_buf;
     }
 
-    ssize_t old_len = v->buffer_len;
+    const ssize_t old_len = v->buffer_len;
     v->buffer_len = buf_len;
 
     errno = 0;
