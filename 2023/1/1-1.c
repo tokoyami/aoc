@@ -28,7 +28,13 @@ int main(int argc, char **argv)
             return 1;
         }
 
-        append(&list, line);
+        if (!append(&list, line)) {
+            free_string(line);
+            free(line);
+            free_list(&list, free_list_data);
+            return 1;
+        }
+
         if (rv == Success) {
             continue;
         } else if (rv == EndOfFile) {
