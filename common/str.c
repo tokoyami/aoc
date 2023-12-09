@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct string *init_string(ssize_t initial_len)
+struct string *init_string(size_t initial_len)
 {
     errno = 0;
     struct string *const str = (struct string *)malloc(sizeof(struct string));
@@ -36,13 +36,13 @@ void free_string(struct string *v)
     v->buffer_len = 0;
 }
 
-bool is_space_enough_to_append(struct string *v, ssize_t extra_size)
+bool is_space_enough_to_append(struct string *v, size_t extra_size)
 {
     // Make sure there is at least one zero byte for string termination.
     return v->len + 1 + extra_size <= v->buffer_len;
 }
 
-bool reallocate(struct string *v, ssize_t new_len)
+bool reallocate(struct string *v, size_t new_len)
 {
     if (new_len <= 0) {
         printf("%s: size must be positive\n", __func__);
@@ -51,7 +51,7 @@ bool reallocate(struct string *v, ssize_t new_len)
 
     // Allocate a buffer 1.5 times bigger than requested.
     // TODO: Maybe also round the value to the next alignment value.
-    const ssize_t buf_len = (new_len * 3) / 2;
+    const size_t buf_len = (new_len * 3) / 2;
     errno = 0;
     char *const new_buf = (char *)realloc(v->data, buf_len);
     if (new_buf == nullptr) {
@@ -63,7 +63,7 @@ bool reallocate(struct string *v, ssize_t new_len)
         v->data = new_buf;
     }
 
-    const ssize_t old_len = v->buffer_len;
+    const size_t old_len = v->buffer_len;
     v->buffer_len = buf_len;
 
     errno = 0;
@@ -76,14 +76,14 @@ bool reallocate(struct string *v, ssize_t new_len)
     return true;
 }
 
-bool append_char(struct string *v, const char *data, ssize_t data_len)
+bool append_char(struct string *v, const char *data, size_t data_len)
 {
     if (data_len <= 0) {
         printf("%s: data length must positive\n", __func__);
         return false;
     }
 
-    const ssize_t new_len = v->len + data_len;
+    const size_t new_len = v->len + data_len;
     if (!is_space_enough_to_append(v, new_len)) {
         if (!reallocate(v, new_len)) {
             return false;

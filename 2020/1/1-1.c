@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     // Number string will never be above 4 characters.
     int nbuf_index = 0;
     char nbuf[5] = {0};
-    ssize_t bytes = 0;
+    size_t bytes = 0;
     errno = 0;
     while ((bytes = read(fd, &buf, 1)) != 0) {
         switch (bytes) {
