@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -42,9 +43,32 @@ int main(int argc, char **argv)
         }
     }
 
+    unsigned long sum = 0;
     for (struct list *n = list; n != nullptr; n = n->next) {
-        printf("%s", ((struct string *)n->data)->data);
+        char number[2] = {0, 0};
+        struct string *start = n->data;
+        int s = 0;
+        for (; s <= start->len; ++s) {
+            if (isdigit(start->data[s])) {
+                number[0] = start->data[s];
+                break;
+            }
+        }
+        if (s == start->len && number[0] == 0) {
+            // No numbers on this line.
+            continue;
+        }
+        int e = start->len;
+        for (; e >= 0; --e) {
+            if (isdigit(start->data[e])) {
+                number[1] = start->data[e];
+                break;
+            }
+        }
+        sum += atoi(number);
     }
+
+    printf("sum = %lu\n", sum);
 
     free_list(&list, free_list_data);
 
