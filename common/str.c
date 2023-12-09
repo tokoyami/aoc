@@ -88,7 +88,7 @@ bool append_char(struct string *v, const char *data, size_t data_len)
     }
 
     const size_t new_len = v->len + data_len;
-    if (!is_space_enough_to_append(v, new_len)) {
+    if (!is_space_enough_to_append(v, data_len)) {
         if (!reallocate(v, new_len)) {
             return false;
         }
