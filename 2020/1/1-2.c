@@ -23,7 +23,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    struct list *value_list = NULL;
+    struct list *value_list = nullptr;
     char buf = 0;
     // Number string will never be above 4 characters.
     int nbuf_index = 0;
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
                         } else {
                             perror("strtol");
                         }
-                        if (memset(nbuf, 0, sizeof nbuf) == NULL) {
+                        if (memset(nbuf, 0, sizeof nbuf) == nullptr) {
                             printf("memset error\n");
                         }
                         nbuf_index = 0;
@@ -70,20 +70,20 @@ int main(int argc, char **argv)
         errno = 0;
     }
 
-    if (value_list == NULL) {
+    if (value_list == nullptr) {
         printf("no numbers in input\n");
         return 1;
     }
 
     int done = 0;
     for (struct list *start_left = value_list;
-         start_left != NULL && done == 0;
+         start_left != nullptr && done == 0;
          start_left = start_left->next) {
         for (struct list *start_middle = start_left->next;
-             start_middle != NULL && done == 0;
+             start_middle != nullptr && done == 0;
              start_middle = start_middle->next) {
             for (struct list *start_right = start_middle->next;
-                 start_right != NULL;
+                 start_right != nullptr;
                  start_right = start_right->next) {
                 if ((int)(uintptr_t)start_left->data + (int)(uintptr_t)start_middle->data +
                     (int)(uintptr_t)start_right->data == 2020) {
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
         }
     }
 
-    free_list(&value_list, NULL);
+    free_list(&value_list, nullptr);
 
     return 0;
 }
