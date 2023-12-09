@@ -48,6 +48,10 @@ bool reallocate(struct string *v, size_t new_len)
         printf("%s: size must be positive\n", __func__);
         return false;
     }
+    if (new_len <= v->buffer_len) {
+        printf("%s: requested size is less than current buffer\n", __func__);
+        return false;
+    }
 
     // Allocate a buffer 1.5 times bigger than requested.
     // TODO: Maybe also round the value to the next alignment value.
